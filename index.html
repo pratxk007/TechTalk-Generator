@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CIMET Tech Talks</title>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+      /* Styles unchanged
+        
+        from your initial content */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.4;
+        background: white;
+        color: #333;
+        margin: 0;
+        max-width: 768px;
+        margin: auto;
+      }
+
+      @page {
+        size: A4;
+        margin: 10mm;
+      }
+
+      .header img,
+      .footer img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .header,
+      .footer {
+        text-align: center;
+        background-color: #e9ecef;
+        padding: 5px;
+        position: relative;
+        background: white;
+      }
+
+      .main-content {
+        max-width: 190mm;
+        margin: 0 auto;
+        padding: 5mm;
+        background: white;
+      }
+
+      h1 {
+        color: #1a73e8;
+        margin-bottom: 6px;
+        font-size: 18px;
+      }
+
+      h3 {
+        color: #444;
+        margin: 12px 0 6px;
+        font-size: 14px;
+      }
+
+      ul {
+        margin-left: 20px;
+        padding-left: 10px;
+      }
+
+      ul li {
+        margin-bottom: 4px;
+        font-size: 13px;
+      }
+
+      p {
+        margin: 6px 0;
+        font-size: 13px;
+      }
+
+      strong {
+        color: #000;
+      }
+
+      .headerTextContnet {
+        position: absolute;
+        min-width: 100%;
+        bottom: 1.25rem;
+        display: flex;
+        color: white;
+        background: transparent;
+        justify-content: space-between;
+        font-size: 18px;
+        padding-left: 10%;
+        padding-right: 10%;
+        gap: 20%;
+      }
+
+      .headerTextContnet > div:first-child {
+        width: 100%;
+        overflow: wrap;
+        text-align: left;
+      }
+
+      .headerTextContnet > div:last-child {
+        width: 100%;
+        overflow: wrap;
+        text-align: right;
+      }
+
+      .headerTextContnet > div > p {
+        width: 100%;
+      }
+
+      .headerTextContnet > div > p > strong {
+        color: white;
+        font-size: 18px;
+        text-overflow: ellipsis;
+        overflow: wrap;
+        text-align: left;
+      }
+
+      .buttonDiv {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.25rem;
+      }
+
+      .buttonDiv > button {
+        background: darkgray;
+        color: white;
+        padding: 5px;
+        border-radius: 5px;
+        box-shadow: #333;
+        cursor: pointer;
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      .modal-content {
+        background-color: white;
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 8px;
+        width: 80%;
+        max-width: 400px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .modal-content label {
+        display: block;
+        margin: 8px 0 4px;
+      }
+
+      .modal-content input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      .modal-content button {
+        display: block;
+        margin-top: 10px;
+        width: 100%;
+        background: #1a73e8;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      #toast {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #333;
+        color: #fff;
+        padding: 15px;
+        border-radius: 5px;
+        font-size: 16px;
+        z-index: 9999;
+        display: none;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+      }
+
+      @media print {
+        body {
+          background: white;
+          margin: 0;
+        }
+
+        .main-content {
+          box-shadow: none;
+          border: none;
+        }
+
+        .header,
+        .footer {
+          page-break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="capture">
+      <header class="header">
+        <img src="techtalkmainimage.png" alt="CIMET Tech Talks Header" />
+        <div class="headerTextContnet">
+          <div>
+            <p>This week's topic: <strong id="topicName">Graph Ql</strong></p>
+            <p>Speaker: <strong id="speakerName">Guddu Tiwari</strong></p>
+          </div>
+          <div>
+            <p>Where <strong>Curiosity</strong></p>
+            <p>Meets <strong>Innovation!</strong></p>
+          </div>
+        </div>
+      </header>
+      <main class="main-content">
+        <h1>Hello Team,</h1>
+        <p>
+          Get ready for another exciting episode of
+          <strong>CIMET Tech Talks!</strong> Every week, we dive into the latest
+          tech trends, innovations, and thought-provoking ideas that could shape
+          the future.
+        </p>
+        <p>
+          This is the space where tech enthusiasts, innovators, and curious
+          minds come together to explore cutting-edge technologies, dive deep
+          into industry insights, and share knowledge that inspires.
+        </p>
+        <h3>Who’s invited?</h3>
+        <ul>
+          <li><strong>Tech Team:</strong> You won’t want to miss this!</li>
+          <li>
+            <strong>Everyone Else:</strong> Join the conversation and share
+            diverse perspectives!
+          </li>
+        </ul>
+        <h3>The Details:</h3>
+        <p><strong>When:</strong> <span id="eventDate">05-12-2024</span></p>
+        <p>
+          <strong>Time:</strong>
+          <span id="eventTime">11:00 AM IST | 4:30 PM AEDT</span>
+        </p>
+        <p><strong>Where:</strong> Microsoft Teams</p>
+        <h3>Why should you be there?</h3>
+        <ul>
+          <li><strong>Discover:</strong> Explore the latest tech topics.</li>
+          <li>
+            <strong>Learn:</strong> Gain actionable insights for work and life.
+          </li>
+          <li>
+            <strong>Connect:</strong> Collaborate with colleagues across the
+            organization.
+          </li>
+          <li><strong>Inspire:</strong> Spark your next big idea!</li>
+        </ul>
+        <p>
+          Mark your calendars, grab your favorite beverage, and join us for an
+          engaging discussion!
+        </p>
+        <p><strong>Stay Curious</strong></p>
+      </main>
+      <footer class="footer">
+        <img src="techtalkbottomsection.png" alt="CIMET Tech Talks Footer" />
+      </footer>
+    </div>
+    <div class="buttonDiv">
+      <button id="changeDetails">Change Event Details</button>
+      <button id="download">Download as Image</button>
+    </div>
+
+
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <form
+          method="post"
+          action="https://script.google.com/macros/s/AKfycbwW81njdQtqjuRhBRtZw6-g4N88W2V_qJj1C-GgIsUH6ldL6LpLCK-EiLG-OVozXpO85Q/exec"
+          name="details-form"
+        >
+          <label for="newSpeaker">Speaker Name:</label>
+          <input
+            type="text"
+            id="newSpeaker"
+            name="speaker-name"
+            placeholder="Enter Speaker Name"
+          />
+          <label for="newTopic">Topic Name:</label>
+          <input
+            type="text"
+            id="newTopic"
+            name="topic-name"
+            placeholder="Enter Topic Name"
+          />
+          <label for="newDate">Date:</label>
+          <input type="date" name="event-date" id="newDate" />
+          <label for="newTime">Time:</label>
+          <input
+            type="text"
+            name="event-time"
+            id="newTime"
+            placeholder="Enter Time"
+          />
+          <input
+            type="text"
+            name="status"
+            value="pending"
+            id="newTime"
+            placeholder="Enter Time"
+            hidden
+          />
+          <button type="submit" value="submit" id="saveDetails">
+            Save Details
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
